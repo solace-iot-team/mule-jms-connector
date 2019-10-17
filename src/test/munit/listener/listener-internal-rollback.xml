@@ -30,7 +30,7 @@ http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/mu
         </munit:enable-flow-sources>
         <munit:execution>
             <set-payload value="#[java!org::mule::extensions::jms::test::PojoThatDoesntDeserialize::new('bla')]"/>
-            <jms:publish config-ref="config" destination="DEV.QUEUE.1"/>
+            <jms:publish config-ref="config-no-caching" destination="DEV.QUEUE.1"/>
         </munit:execution>
         <munit:validation>
             <until-successful millisBetweenRetries="100" maxRetries="1000">
@@ -41,12 +41,12 @@ http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/mu
     </munit:test>
 
     <flow name="mqListenerRollback">
-        <jms:listener config-ref="config" destination="DEV.QUEUE.1"/>
+        <jms:listener config-ref="config-no-caching" destination="DEV.QUEUE.1"/>
         <munit-tools:queue/>
     </flow>
 
     <flow name="mqListenerRollbackTx">
-        <jms:listener config-ref="config" destination="DEV.QUEUE.1" transactionalAction="ALWAYS_BEGIN"/>
+        <jms:listener config-ref="config-no-caching" destination="DEV.QUEUE.1" transactionalAction="ALWAYS_BEGIN"/>
         <munit-tools:queue/>
     </flow>
 

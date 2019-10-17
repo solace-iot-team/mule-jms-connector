@@ -15,23 +15,31 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
     <!--  Is required a 4.1.5 min mule version to prevent a bug on the lazy init on Bitronix -->
     <munit:config name="xa-listener-test-cases.xml" minMuleVersion="4.1.5"/>
 
-        <munit:test name="receive-xa-message" >
-            <munit:enable-flow-sources>
-                <munit:enable-flow-source value="xaListener"/>
-            </munit:enable-flow-sources>
-            <munit:execution>
-                <set-variable variableName="message" value="#[randomInt(1000000) as String]"/>
-                <jms:publish destination="dest1" config-ref="config-no-caching">
-                    <jms:message>
-                        <jms:body>#[{ message : vars.message }]</jms:body>
-                    </jms:message>
-                </jms:publish>
-            </munit:execution>
-            <munit:validation>
-                <munit-tools:dequeue/>
-                <munit-tools:assert-that expression="#[payload.message]" is="#[MunitTools::equalTo(vars.message)]"/>
-            </munit:validation>
-        </munit:test>
+    <munit:after-test name="afterTest3" description="after test">
+        <set-variable variableName="brokerName" value="localhost"/>
+        <set-variable variableName="destinationName" value="dest1"/>
+        <flow-ref name="purgeQueue"/>
+        <set-variable variableName="destinationName" value="dest2"/>
+        <flow-ref name="purgeQueue"/>
+    </munit:after-test>
+
+    <munit:test name="receive-xa-message" >
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="xaListener"/>
+        </munit:enable-flow-sources>
+        <munit:execution>
+            <set-variable variableName="message" value="#[randomInt(1000000) as String]"/>
+            <jms:publish destination="dest1" config-ref="config-no-caching">
+                <jms:message>
+                    <jms:body>#[{ message : vars.message }]</jms:body>
+                </jms:message>
+            </jms:publish>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:dequeue/>
+            <munit-tools:assert-that expression="#[payload.message]" is="#[MunitTools::equalTo(vars.message)]"/>
+        </munit:validation>
+    </munit:test>
 
     <munit:test name="bridge-xa-message" >
         <munit:enable-flow-sources>
