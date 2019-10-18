@@ -37,6 +37,12 @@
         <java:invoke-static class="org.mule.extensions.jms.test.ActiveMQSSLServer" method="stop()"/>
     </munit:after-suite>
 
+    <munit:after-test name="afterTest-activemq-over-ssl-test-case" description="after test">
+        <set-variable variableName="brokerName" value="localhost"/>
+        <set-variable variableName="destinationName" value="someDest"/>
+        <flow-ref name="purgeQueue"/>
+    </munit:after-test>
+
     <munit:test name="send-message-through-SSL">
         <munit:execution>
             <set-variable variableName="message" value="#[&quot;I'm a secure message&quot;]"/>

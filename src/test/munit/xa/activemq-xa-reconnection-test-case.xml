@@ -21,7 +21,7 @@
         <connection-test:create-proxy realPort="61616" realHost="activemq" proxyPort="${connection.lost.port}"/>
     </munit:before-suite>
 
-    <munit:after-test name="afterTest1" description="after test">
+    <munit:after-test name="afterTest-activemq-xa-reconnection-test-case" description="after test">
         <set-variable variableName="brokerName" value="localhost"/>
         <set-variable variableName="destinationName" value="destination_1"/>
         <flow-ref name="purgeQueue"/>

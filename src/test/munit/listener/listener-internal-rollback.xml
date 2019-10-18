@@ -24,6 +24,12 @@ http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/mu
             </munit:parameterizations>
     </munit:config>
 
+    <munit:after-test name="afterTest-listener-internal-rollback" description="after test">
+        <set-variable variableName="brokerName" value="localhost"/>
+        <set-variable variableName="destinationName" value="DEV.QUEUE.1"/>
+        <flow-ref name="purgeQueue"/>
+    </munit:after-test>
+
     <munit:test name="messageIsReturnedToQueue">
         <munit:enable-flow-sources>
             <munit:enable-flow-source value="${source}"/>
