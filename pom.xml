@@ -43,7 +43,6 @@
         <docker.maven.plugin.version>0.31.0</docker.maven.plugin.version>
         <maven.helper.plugin.version>3.0.0</maven.helper.plugin.version>
         <docker.skip>${skipTests}</docker.skip>
-        <runtimeVersion>4.3.0-SNAPSHOT</runtimeVersion>
     </properties>
 
     <dependencies>
@@ -272,6 +271,7 @@
                         <discoverRuntimes>
                             <product>EE</product>
                             <includeSnapshots>true</includeSnapshots>
+                            <minMuleVersion>4.3.0</minMuleVersion>
                         </discoverRuntimes>
                     </runtimeConfiguration>
                 </configuration>
