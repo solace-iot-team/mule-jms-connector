@@ -27,7 +27,7 @@
         <guavaVersion>25.1-jre</guavaVersion>
         <springVersion>5.1.6.RELEASE</springVersion>
         <jacksonVersion>2.11.0</jacksonVersion>
-        <hawtbufVersion>1.1</hawtbufVersion>
+        <hawtbufVersion>1.11</hawtbufVersion>
         <muleSpringModuleVersion>1.2.0</muleSpringModuleVersion>
         <formatterConfigPath>formatter.xml</formatterConfigPath>
         <muleJmsClientVersion>1.9.0-SNAPSHOT</muleJmsClientVersion>
